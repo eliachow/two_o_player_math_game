@@ -18,7 +18,14 @@ class Game
  
   def start_game
     @game_io.welcome_message
+    @player_1 = Player.new("Player 1")
+    @player_2 = Player.new("Player 2")
+
+    # Watch to see if either player's lives equals 0
+    game_over?
+    
   end
+
 
   def end_game
     @game_io.announce_winner
@@ -26,11 +33,15 @@ class Game
     puts "Good bye!"
   end
 
+  # if player 1 or player 2 lives = 0, call end_game
+  def game_over?
+    if @player_1.lives == 0 || @player_2.lives == 0
+      end_game
+    end
+  end
+
 end
 
 # Create new game instance
 game = Game.new
 game.start_game
-
-# if player 1 or player 2 lives = 0, call end_game
-# game.end_game
