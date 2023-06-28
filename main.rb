@@ -21,7 +21,7 @@ class Game
   end
  
   def start_game
-    @game_io.welcome_message
+    need_instructions?
 
     # Watch to see if either player's lives equals 0
     until game_over?
@@ -43,13 +43,20 @@ class Game
       # P1: 2/3 vs P2: 3/3
       @game_io.display_scores(@player_1, @player_2)
       switch_player
+
+      # NEW TURN
+      @game_io.display_next_turn
     end
+  end
+
+  def need_instructions?
+    puts "Need instructions on how to play? Y / N"
+    @game_io.get_player_answer == "Y" ? @game_io.display_instructions : @game_io.display_welcome_message
   end
 
   def switch_player
     @current_player = (@current_player == @player_1) ? @player_2 : @player_1
   end
-
 
   # if player 1 or player 2 lives = 0, call end_game
   def game_over?

@@ -9,8 +9,13 @@
 =end
 
 class GameIO
-  def welcome_message
+  def display_welcome_message
     puts "Let's get this game started!"
+  end
+
+  def display_instructions
+    puts "The game is simple, answer the math questions correctly to score points. Get an answer wrong and you'll lose a life. The game ends when the first person loses all 3 lives, at which point the player with the most points is the winner!"
+    puts display_welcome_message
   end
 
   # Question
@@ -33,6 +38,11 @@ class GameIO
   def display_scores(player_1, player_2)
     puts "P1: #{player_1.score}/#{player_1.lives} vs P2: #{player_2.score}/#{player_2.lives}"
   end
+
+  def display_next_turn
+    puts "---- NEW TURN ----"
+  end
+
 
   def announce_winner
     puts "PLAYER# wins with a score of SCORE/3!"

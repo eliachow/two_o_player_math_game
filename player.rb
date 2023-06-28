@@ -14,7 +14,7 @@
 =end
 
 class Player
-  attr_accessor :lives, :score
+  attr_accessor :player_id, :lives, :score
 
   def initialize(player_id)
     @player_id = player_id
