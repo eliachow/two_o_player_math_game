@@ -22,8 +22,13 @@ class Player
     @score = 0
   end
 
- def loser_life
+
+ def lose_life
   @lives -=1
  end  
+
+ def increase_score
+  @score += 1
+ end
 
 end

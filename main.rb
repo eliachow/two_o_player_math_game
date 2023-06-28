@@ -14,12 +14,27 @@ require './player'
 class Game
   def initialize
     @game_io = GameIO.new
+    @player_1 = Player.new("Player 1")
+    @player_2 = Player.new("Player 2")
+    @current_player = @player_1
   end
  
   def start_game
     @game_io.welcome_message
-    @player_1 = Player.new("Player 1")
-    @player_2 = Player.new("Player 2")
+    
+    # PLAYER#: What does n + n equal?
+    question = MathQuestion.new
+    @game_io.display_question(@current_player, question.question)
+
+    # Gather user's input from the terminal
+    player_answer = @game_io.get_player_answer
+    if question.correct?(player_answer)
+      @game_io.display_correct_answer("P1SCORE","P2SCORE")
+      @current_player.increase_score
+    else
+      @game_io.display_wrong_answer
+      @current_player.lose_life
+    end
 
     # Watch to see if either player's lives equals 0
     game_over?
