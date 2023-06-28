@@ -12,6 +12,7 @@ require './player'
   - end_game: Ends the game and declares the winner
 =end
 class Game
+
   def initialize
     @game_io = GameIO.new
     @player_1 = Player.new("Player 1")
@@ -21,38 +22,46 @@ class Game
  
   def start_game
     @game_io.welcome_message
-    
-    # PLAYER#: What does n + n equal?
-    question = MathQuestion.new
-    @game_io.display_question(@current_player, question.question)
-
-    # Gather user's input from the terminal
-    player_answer = @game_io.get_player_answer
-    if question.correct?(player_answer)
-      @game_io.display_correct_answer("P1SCORE","P2SCORE")
-      @current_player.increase_score
-    else
-      @game_io.display_wrong_answer
-      @current_player.lose_life
-    end
 
     # Watch to see if either player's lives equals 0
-    game_over?
+    until game_over?
     
+      # PLAYER#: What does n + n equal?
+      question = MathQuestion.new
+      @game_io.display_question(@current_player, question.question)
+
+      # Gather user's input from the terminal
+      player_answer = @game_io.get_player_answer
+      if question.correct?(player_answer)
+        @game_io.display_correct_answer
+        @current_player.increase_score
+      else
+        @game_io.display_wrong_answer
+        @current_player.lose_life
+      end
+
+      # P1: 2/3 vs P2: 3/3
+      @game_io.display_scores(@player_1, @player_2)
+      switch_player
+    end
   end
 
-
-  def end_game
-    @game_io.announce_winner
-    puts "---- GAME OVER ----"
-    puts "Good bye!"
+  def switch_player
+    @current_player = (@current_player == @player_1) ? @player_2 : @player_1
   end
+
 
   # if player 1 or player 2 lives = 0, call end_game
   def game_over?
     if @player_1.lives == 0 || @player_2.lives == 0
       end_game
     end
+  end
+
+  def end_game
+    @game_io.announce_winner
+    puts "---- GAME OVER ----"
+    puts "Good bye!"
   end
 
 end

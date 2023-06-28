@@ -22,13 +22,16 @@ class GameIO
     gets.chomp
   end
 
-  def display_correct_answer(p1_score, p2_score)
+  def display_correct_answer
     puts "YES! You are correct."
-    puts "P1: #{p1_score}/3 vs P2: #{p2_score}/3"
   end
 
   def display_wrong_answer
     puts "Seriously? No!"
+  end
+
+  def display_scores(player_1, player_2)
+    puts "P1: #{player_1.score}/#{player_1.lives} vs P2: #{player_2.score}/#{player_2.lives}"
   end
 
   def announce_winner
