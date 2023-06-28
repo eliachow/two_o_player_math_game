@@ -10,17 +10,17 @@
 
 class GameIO
   def display_welcome_message
-    puts "Let's get this game started!"
+    puts "\nLet's get this game started!"
   end
 
   def display_instructions
-    puts "The game is simple, answer the math questions correctly to score points. Get an answer wrong and you'll lose a life. The game ends when the first person loses all 3 lives, at which point the player with the most points is the winner!"
+    puts "\n****************************************************************************************\nThe game is simple, answer the math questions correctly to score points. Get an answer wrong and you'll lose a life. The game ends when the first person loses all 3 lives, at which point the player with the most points is the winner!\n****************************************************************************************"
     puts display_welcome_message
   end
 
   # Question
   def display_question(current_player, question)
-    puts "#{current_player}: #{question}"
+    puts "\n#{current_player}: #{question}\n"
   end
 
   def get_player_answer
@@ -28,11 +28,11 @@ class GameIO
   end
 
   def display_correct_answer
-    puts "YES! You are correct."
+    puts "\n ✅ YES! You are correct. \n"
   end
 
   def display_wrong_answer
-    puts "Seriously? No!"
+    puts "\n ❌ Seriously? No!"
   end
 
   def display_scores(player_1, player_2)
@@ -40,11 +40,11 @@ class GameIO
   end
 
   def display_next_turn
-    puts "---- NEW TURN ----"
+    puts "\n---- NEW TURN ----\n"
   end
 
 
-  def announce_winner
-    puts "PLAYER# wins with a score of SCORE/3!"
+  def announce_winner(winner, score)
+    puts "\n #{winner} wins with a score of #{score}!\n"
   end
 end

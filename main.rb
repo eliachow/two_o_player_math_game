@@ -28,7 +28,7 @@ class Game
     
       # PLAYER#: What does n + n equal?
       question = MathQuestion.new
-      @game_io.display_question(@current_player, question.question)
+      @game_io.display_question(@current_player.player_id, question.question)
 
       # Gather user's input from the terminal
       player_answer = @game_io.get_player_answer
@@ -45,17 +45,36 @@ class Game
       switch_player
 
       # NEW TURN
-      @game_io.display_next_turn
+      # @game_io.display_next_turn
+      display_new_turn?
     end
   end
 
   def need_instructions?
     puts "Need instructions on how to play? Y / N"
-    @game_io.get_player_answer == "Y" ? @game_io.display_instructions : @game_io.display_welcome_message
+    answer = @game_io.get_player_answer.downcase
+    answer == "y" ? @game_io.display_instructions : @game_io.display_welcome_message
   end
 
   def switch_player
     @current_player = (@current_player == @player_1) ? @player_2 : @player_1
+  end
+
+  def display_new_turn?
+    game_over? ? puts("") : @game_io.display_next_turn
+  end
+
+  def get_winner
+    if @player_1.score > @player_2.score
+      winner = @player_1.player_id
+      score = @player_1.score
+      @game_io.announce_winner(winner, score)
+    elsif @player_1.score < @player_2.score
+      winner = @player_2.player_id
+      score = @player_2.score
+      @game_io.announce_winner(winner, score)
+    else puts "\n👔 It's a tie! 👔\n"
+    end
   end
 
   # if player 1 or player 2 lives = 0, call end_game
@@ -66,9 +85,10 @@ class Game
   end
 
   def end_game
-    @game_io.announce_winner
-    puts "---- GAME OVER ----"
-    puts "Good bye!"
+    get_winner
+    puts "\n---- GAME OVER ----\n"
+    puts "👋 Good bye!"
+    exit
   end
 
 end
